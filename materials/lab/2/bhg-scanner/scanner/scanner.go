@@ -70,7 +70,7 @@ func PortScanner() (int, int) { //put in 1024
 		fmt.Printf("%d, open\n", port)
 	}
 	for _, port := range closedports {
-		fmt.Printf("%d, closed\n", port)
+		fmt.Printf("%d, closed\n", -1 * port)
 	}
 
 	return len(openports), len(closedports) // TODO 6 : Return total number of ports scanned (number open, number closed); 

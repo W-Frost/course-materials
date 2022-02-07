@@ -8,7 +8,7 @@ import (
 func TestOpenPort(t *testing.T){
 
     got, _ := PortScanner() // Currently function returns only number of open ports
-    want := 2 // default value when passing in 1024 TO scanme; also only works because currently PortScanner only returns 
+    want := 1024 // default value when passing in 1024 TO scanme; also only works because currently PortScanner only returns 
 	          //consider what would happen if you parameterize the portscanner address and ports to scan
 
     if got != want {
@@ -21,8 +21,8 @@ func TestTotalPortsScanned(t *testing.T){
 
     open, close := PortScanner()
 	got:= open + close // Currently function returns only number of open ports
-    want := 1024 // default value; consider what would happen if you parameterize the portscanner ports to scan
-
+    want := 2048 // default value; consider what would happen if you parameterize the portscanner ports to scan
+//changed to 2048
     if got != want {
         t.Errorf("got %d, wanted %d", got, want)
     }
