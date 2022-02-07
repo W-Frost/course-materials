@@ -62,11 +62,15 @@ func PortScanner() (int, int) { //put in 1024
 	close(ports)
 	close(results)
 	sort.Ints(openports)
+	sort.Ints(closedports) //sorted the closedports
 
 	//TODO 5 : Enhance the output for easier consumption, include closed ports
 
 	for _, port := range openports {
 		fmt.Printf("%d, open\n", port)
+	}
+	for _, port := range closedports {
+		fmt.Printf("%d, closed\n", port)
 	}
 
 	return len(openports), len(closedports) // TODO 6 : Return total number of ports scanned (number open, number closed); 

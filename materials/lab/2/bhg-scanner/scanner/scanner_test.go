@@ -13,7 +13,7 @@ func TestOpenPort(t *testing.T){
 
     if got != want {
         t.Errorf("got %d, wanted %d", got, want)
-    }
+	}
 }
 
 func TestTotalPortsScanned(t *testing.T){
