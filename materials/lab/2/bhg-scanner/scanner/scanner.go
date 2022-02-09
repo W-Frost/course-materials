@@ -14,8 +14,6 @@ import (
 )
 
 //TODO 3 : ADD closed ports; currently code only tracks open ports
-var openports []int  // notice the capitalization here. access limited!
-var closedports [] int
 
 func worker(ports, results chan int) {
 	for p := range ports {
@@ -36,6 +34,9 @@ func worker(ports, results chan int) {
 // hard: restructuring code - consider modification to class/object 
 // No matter what you do, modify scanner_test.go to align; note the single test currently fails
 func PortScanner() (int, int) { //put in 1024  
+	
+	var openports []int  // notice the capitalization here. access limited!
+	var closedports []int
 
 	ports := make(chan int, 100)   // TODO 4: TUNE THIS FOR CODEANYWHERE / LOCAL MACHINE
 	results := make(chan int)
@@ -66,12 +67,12 @@ func PortScanner() (int, int) { //put in 1024
 
 	//TODO 5 : Enhance the output for easier consumption, include closed ports
 
-	for _, port := range openports {
-		fmt.Printf("%d, open\n", port)
-	}
 	for _, port := range closedports {
 		fmt.Printf("%d, closed\n", -1 * port)
 	}
+	for _, port := range openports {
+		fmt.Printf("%d, open\n", port)
+	} //swapped around to see the one port that's usually open
 
 	return len(openports), len(closedports) // TODO 6 : Return total number of ports scanned (number open, number closed); 
 	//you'll have to modify the function parameter list in the defintion and the values in the scanner_test
