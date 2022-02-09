@@ -1,7 +1,8 @@
 // bhg-scanner/scanner.go modified from Black Hat Go > CH2 > tcp-scanner-final > main.go
 // Code : https://github.com/blackhat-go/bhg/blob/c27347f6f9019c8911547d6fc912aa1171e6c362/ch-2/tcp-scanner-final/main.go
 // License: {$RepoRoot}/materials/BHG-LICENSE
-// Useage:
+// Useage: Scanner program to find out how many ports are open or closed in a given system. It does this by using workers to scan a number of ports before 
+// formating the values into readable output before returning both the length of the open ports and the length of the closed ports.
 // {TODO 1: FILL IN}
 
 package scanner
@@ -14,7 +15,7 @@ import (
 )
 
 //TODO 3 : ADD closed ports; currently code only tracks open ports
-
+//moved into the code it was required in
 func worker(ports, results chan int) {
 	for p := range ports {
 		address := fmt.Sprintf("scanme.nmap.org:%d", p)    
@@ -27,18 +28,16 @@ func worker(ports, results chan int) {
 		results <- p
 	}
 }
-
 // for Part 5 - consider
 // easy: taking in a variable for the ports to scan (int? slice? ); a target address (string?)?
 // med: easy + return  complex data structure(s?) (maps or slices) containing the ports.
 // hard: restructuring code - consider modification to class/object 
 // No matter what you do, modify scanner_test.go to align; note the single test currently fails
-func PortScanner() (int, int) { //put in 1024  
-	
+func PortScanner(def int) (int, int) { //put in a default value which can change for how many ports they want to scan
 	var openports []int  // notice the capitalization here. access limited!
 	var closedports []int
 
-	ports := make(chan int, 100)   // TODO 4: TUNE THIS FOR CODEANYWHERE / LOCAL MACHINE
+	ports := make(chan int, 50)   // TODO 4: TUNE THIS FOR CODEANYWHERE / LOCAL MACHINE (I changed it to 50 seems to work still)
 	results := make(chan int)
 
 	for i := 0; i < cap(ports); i++ {
@@ -46,12 +45,12 @@ func PortScanner() (int, int) { //put in 1024
 	}
 
 	go func() {
-		for i := 1; i <= 1024; i++ {
+		for i := 1; i <= def; i++ {
 			ports <- i
 		}
 	}()
 
-	for i := 0; i < 1024; i++ {
+	for i := 0; i < def; i++ {
 		port := <-results
 		if port > 0 {
 			openports = append(openports, port)
