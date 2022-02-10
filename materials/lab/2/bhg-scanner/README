@@ -1,1 +1,8 @@
-You might need to do a "go mod init bhg-scanner" or "go mod tidy"
+Code is for scanning an amount of ports to see whether they are open or closed. This is done using workers piping into channels which is then
+deciphered into two seperate array lists for open and closed. These arrays are then printed out for the user to see which are open and which 
+ones are closed. The tests are to simply check if the correct amount of open ports (this test has to be changed for each machine one for instance
+on campus it is 2 for at home it is 1) have been passed and the other test is to show how many ports
+there are in total.
+
+The changes I made to this code is I changed the order in which the displayed output is presented. I also added the functionality of using an int to the 
+PortScanner() function so that it can accept an int and work in the same way as before. I also updated the tests so that it works at home.
