@@ -68,11 +68,11 @@ func main() {
 		var newPageNum string
 		fmt.Printf("Please select which page you wish to choose.\n")
 		fmt.Scanln(&newPageNum)
-		a2,err:=strconv.Atoi(newPageNum)//takes the second command line arguement and turns it into an int for the use in host search
+		a2,err:=strconv.Atoi(newPageNum)//takes the input and uses it as the next page that wants to be looked at
 		if err!= nil {
 			log.Panicln(err)
 		}
-		hostSearch, err := s.HostSearch(os.Args[1], a2) // changed to accept second arguement for page numbers
+		hostSearch, err := s.HostSearch(os.Args[1], a2) // puts the argument in here
 		if err != nil {
 			log.Panicln(err)
 		}

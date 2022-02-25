@@ -1,0 +1,1 @@
+I just changed the shodan to what happened in the video lecture of adding the page number variable.
