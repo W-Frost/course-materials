@@ -105,7 +105,20 @@ func UpdateAssignment(w http.ResponseWriter, r *http.Request) {
 	
 	var response Response
 	response.Assignments = Assignments
-
+	params := mux.Vars(r)
+	var assignmnet Assignment	
+	r.ParseForm()
+	for index, assignment := range Assignments {
+		if assignment.Id == params["id"]{
+			Assignments = append(Assignments[:index], Assignments[index+1:]...)
+			assignmnet.Id =  r.FormValue("id")
+		    assignmnet.Title =  r.FormValue("title")
+			assignmnet.Description =  r.FormValue("desc")
+			assignmnet.Points, _ =  strconv.Atoi(r.FormValue("points"))
+			Assignments = append(Assignments, assignmnet)
+			break
+		}
+	}
 
 
 }
