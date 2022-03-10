@@ -13,6 +13,10 @@ import (
 type Response struct{
 	Assignments []Assignment `json:"assignments"`
 }
+//added the response for class
+type ClassesResponse struct{
+	Classes []Class `json:"classes"`
+}
 
 type Assignment struct {
 	Id string `json:"id"`
@@ -20,7 +24,15 @@ type Assignment struct {
 	Description string `json:"desc"`
 	Points int `json:"points"`
 }
+//added the struct for class
+type Class struct {
+	Id string `json:"id"`
+	Name string `json:"name`
+	CourseDescription string `json:"course desc"`
+	Credits int `json:"credits"`
+}
 
+var Classes []Class
 var Assignments []Assignment
 const Valkey string = "FooKey"
 
@@ -138,5 +150,20 @@ func CreateAssignment(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusCreated)
 	}
 	w.WriteHeader(http.StatusNotFound)
+}
 
+//Creates the classes
+func CreateClass(w http.ResponseWriter, r*http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var class Class
+	r.ParseForm()
+	if(r.FormValue("id") !=""){
+		class.Id =r.FormValue("id")
+		class.Name = r.FormValue("name")
+		class.CourseDescription = r.FormValue("course desc")
+		class.Credits, _ = strconv.Atoi(r.FormValue("credits"))
+		Classes = append(Classes, class)
+		w.WriteHeader(http.StatusCreated)
+	}
+	w.WriteHeader(http.StatusNotFound)
 }
