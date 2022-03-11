@@ -45,6 +45,15 @@ func InitAssignments(){
 	Assignments = append(Assignments, assignmnet)
 }
 
+func InitClasses(){
+	var class Class
+	class.Id = "COSC"
+	class.Name = "Cyber Security "
+	class.CourseDescription = "A great class"
+	class.Credits = 3
+	Classes = append(Classes, class)
+}
+
 func APISTATUS(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Entering %s end point", r.URL.Path)
 	w.WriteHeader(http.StatusOK)
@@ -66,8 +75,7 @@ func GetAssignments(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-
-	//TODO 
+ 
 	w.Write(jsonResponse)
 }
 
@@ -81,10 +89,15 @@ func GetAssignment(w http.ResponseWriter, r *http.Request) {
 		if assignment.Id == params["id"]{
 			json.NewEncoder(w).Encode(assignment)
 			break
+		}else {
+			//added if there is no such assignment
+			response := "No such entry"
+			jsonResponse, err := json.Marshal(response)
+			if err!=nil{
+			w.Write(jsonResponse)
+			}
 		}
 	}
-	//TODO : Provide a response if there is no such assignment
-	//w.Write(jsonResponse)
 }
 
 func DeleteAssignment(w http.ResponseWriter, r *http.Request) {
@@ -166,4 +179,45 @@ func CreateClass(w http.ResponseWriter, r*http.Request) {
 		w.WriteHeader(http.StatusCreated)
 	}
 	w.WriteHeader(http.StatusNotFound)
+}
+
+//Gets a class
+func GetClass(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Entering %s end point", r.URL.Path)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	params := mux.Vars(r)
+
+	for _, class := range Classes {
+		if class.Id == params["id"]{
+			json.NewEncoder(w).Encode(class)
+			break
+		}else {
+			//added if there is no such class
+			response := "No such entry"
+			jsonResponse, err := json.Marshal(response)
+			if err!=nil{
+			w.Write(jsonResponse)
+			}
+		}
+	}
+}
+
+//Gets all the classes
+func GetClasses(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Entering %s end point", r.URL.Path)
+	var classes ClassesResponse
+
+	classes.Classes = Classes
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	
+	jsonResponse, err := json.Marshal(classes)
+
+	if err != nil {
+		return
+	}
+ 
+	w.Write(jsonResponse)
 }
