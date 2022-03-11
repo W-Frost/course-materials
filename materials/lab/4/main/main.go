@@ -28,7 +28,7 @@ func main() {
 	router.HandleFunc("/class", wyoassign.CreateClass).Methods("POST")
 	router.HandleFunc("/class/{id}", wyoassign.GetClass).Methods("GET")
 	router.HandleFunc("/classes",wyoassign.GetClasses).Methods("GET")
-	router.HandleFunc("/class/{id}", wyoassign.DeleteAssignment).Methods("DELETE")
+	router.HandleFunc("/class/{id}", wyoassign.DeleteClass).Methods("DELETE")
 
 
 	http.Handle("/", router)
