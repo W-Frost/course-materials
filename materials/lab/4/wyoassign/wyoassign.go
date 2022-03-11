@@ -124,6 +124,7 @@ func DeleteAssignment(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonResponse)
 }
 
+//finished update
 func UpdateAssignment(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Entering %s end point", r.URL.Path)
 	w.Header().Set("Content-Type", "application/json")
@@ -219,5 +220,30 @@ func GetClasses(w http.ResponseWriter, r *http.Request) {
 		return
 	}
  
+	w.Write(jsonResponse)
+}
+
+//Deletes a class
+func DeleteClass(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Entering %s DELETE end point", r.URL.Path)
+	w.Header().Set("Content-Type", "application/txt")
+	w.WriteHeader(http.StatusOK)
+	params := mux.Vars(r)
+	
+	response := make(map[string]string)
+
+	response["status"] = "No Such ID to Delete"
+	for index, class := range Classes {
+			if class.Id == params["id"]{
+				Classes = append(Classes[:index], Classes[index+1:]...)
+				response["status"] = "Success"
+				break
+			}
+	}
+		
+	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		return
+	}
 	w.Write(jsonResponse)
 }

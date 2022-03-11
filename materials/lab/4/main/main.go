@@ -10,6 +10,8 @@ import (
 
 func main() {
 	wyoassign.InitAssignments()
+	//added the initial posting of a class
+	wyoassign.InitClasses()
 	log.Println("starting API server")
 	//create a new router
 	router := mux.NewRouter()
@@ -26,6 +28,8 @@ func main() {
 	router.HandleFunc("/class", wyoassign.CreateClass).Methods("POST")
 	router.HandleFunc("/class/{id}", wyoassign.GetClass).Methods("GET")
 	router.HandleFunc("/classes",wyoassign.GetClasses).Methods("GET")
+	router.HandleFunc("/class/{id}", wyoassign.DeleteAssignment).Methods("DELETE")
+
 
 	http.Handle("/", router)
 
