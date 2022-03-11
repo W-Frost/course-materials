@@ -124,7 +124,7 @@ func DeleteAssignment(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonResponse)
 }
 
-//finished update
+//finished update recieved help for this function from Mariah Moore
 func UpdateAssignment(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Entering %s end point", r.URL.Path)
 	w.Header().Set("Content-Type", "application/json")
@@ -166,7 +166,7 @@ func CreateAssignment(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 }
 
-//Creates the classes
+//Creates a class
 func CreateClass(w http.ResponseWriter, r*http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var class Class
