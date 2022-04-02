@@ -30,6 +30,7 @@ func walkFn(w http.ResponseWriter) filepath.WalkFunc {
             if r.MatchString(path) {
                 var tfile FileInfo
 				var check int
+				var index int
                 dir, filename := filepath.Split(path)
                 tfile.Filename = string(filename)
                 tfile.Location = string(dir)
@@ -39,18 +40,31 @@ func walkFn(w http.ResponseWriter) filepath.WalkFunc {
                 //TODO_5: As it currently stands the same file can be added to the array more than once 
                 //TODO_5: Prevent this from happening by checking if the file AND location already exist as a single record
                 for _ , name := range Files {
-					if name = tfile.Filename {
+					if name.Filename == tfile.Filename {
                         check = 1
+						break
+					}
+				}
+
+				for _ , name := range Files {
+					if name.Location == tfile.Location {
+                        check = 1
+						break
 					}
 				}
 				
-				Files = append(Files, tfile)
+				if check == 0 {
+				    Files = append(Files, tfile)
+					index ++
+				}
+
+
 
                 if w != nil && len(Files)>0 {
 
                     //TODO_6: The current key value is the LEN of Files (this terrible); 
                     //TODO_6: Create some variable to track how many files have been added
-                    w.Write([]byte(`"`+(strconv.FormatInt(int64(len(Files)), 10))+`":  `))
+                    w.Write([]byte(`"`+(strconv.FormatInt(int64(index), 10))+`":  `))
                     json.NewEncoder(w).Encode(tfile)
                     w.Write([]byte(`,`))
 
