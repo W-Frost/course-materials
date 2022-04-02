@@ -43,6 +43,7 @@ func resetRegEx(){
 
 func clearRegEx(){
      //TODO_15 - Validate that this works as expected and doesn't cause issues
+	 //"I'd argue TODO_15 is already done." - Mike Borowczak
     regexes = nil
 }
 

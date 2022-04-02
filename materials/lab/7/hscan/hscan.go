@@ -15,7 +15,7 @@ import (
 var shalookup map[string]string
 var md5lookup map[string]string
 
-func GuessSingle(sourceHash string, filename string) {
+func GuessSingle(sourceHash string, filename string) string {
 
 	f, err := os.Open(filename)
 	if err != nil {
@@ -39,12 +39,14 @@ func GuessSingle(sourceHash string, filename string) {
 		hash = fmt.Sprintf("%x", sha256.Sum256([]byte(password)))
 		if hash == sourceHash {
 			fmt.Printf("[+] Password found (SHA-256): %s\n", password)
+			return password
 		}
 	}
 
 	if err := scanner.Err(); err != nil {
 		log.Fatalln(err)
 	}
+	return ""
 }
 
 func GenHashMaps(filename string) {
