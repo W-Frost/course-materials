@@ -11,6 +11,10 @@ Due April 9th at 11:59PM
 
 ## Submit 
 1. Link to your Github Repository [16pts]
-
+https://github.com/W-Frost/course-materials/tree/main/materials/lab/7
 2. Report the numbers [2pts]
-2. List of Collaborator
+wordlist.txt: 0.002s/4=0.0005 per password
+10_million_password_list_top_100000: 0.424s/100000=0.00000424s per password
+3. List of Collaborator
+Mariah Moore
+Also may have messed up my lab6. github and codeanywhere weren't happy with each other over the previous commit.
